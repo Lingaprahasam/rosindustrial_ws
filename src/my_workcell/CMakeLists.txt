@@ -37,6 +37,8 @@ find_package(catkin REQUIRED)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   fake_ar_publisher
+  message_generation
+  geometry_msgs
 )
 ##   * add "message_runtime" and every package in MSG_DEP_SET to
 ##     catkin_package(CATKIN_DEPENDS ...)
@@ -53,11 +55,12 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
+add_service_files(
+  FILES
+  LocalizePart.srv
 #   Service1.srv
 #   Service2.srv
-# )
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -67,10 +70,11 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
+generate_messages(
+  DEPENDENCIES
+  geometry_msgs
 #   std_msgs  # Or other packages containing msgs
-# )
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -107,6 +111,8 @@ catkin_package(
  CATKIN_DEPENDS 
  roscpp
  fake_ar_publisher
+ geometry_msgs
+ message_runtime
 #  DEPENDS system_lib
 )
 
@@ -208,5 +214,15 @@ add_executable(vision_node
 add_dependencies(vision_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 target_link_libraries(vision_node
+  ${catkin_LIBRARIES}
+)
+
+add_executable(my_workcell_node
+  src/my_workcell_node.cpp
+)
+
+add_dependencies(my_workcell_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+target_link_libraries(my_workcell_node
   ${catkin_LIBRARIES}
 )
