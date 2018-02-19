@@ -1,0 +1,12 @@
+<launch>
+
+<!-- Launch Environment Nodes -->
+<node name="fake_ar_publisher" pkg="fake_ar_publisher" type="fake_ar_publisher_node" />
+<node name="vision_node" pkg="myworkcell" type="vision_node" />
+
+<!-- Launch Application Nodes -->
+<node name="myworkcell_node" pkg="myworkcell" type="myworkcell_node" output="screen">
+  <param name="base_frame" value="world"/>
+</node>
+
+</launch>

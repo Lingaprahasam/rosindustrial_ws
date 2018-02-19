@@ -1,13 +1,15 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(my_workcell)
+project(myworkcell_support)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+# add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED COMPONENTS
+  myworkcell
+)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -34,12 +36,7 @@ find_package(catkin REQUIRED)
 ##     * add a run_depend tag for "message_runtime"
 ## * In this file (CMakeLists.txt):
 ##   * add "message_generation" and every package in MSG_DEP_SET to
-find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  fake_ar_publisher
-  message_generation
-  geometry_msgs
-)
+##     find_package(catkin REQUIRED COMPONENTS ...)
 ##   * add "message_runtime" and every package in MSG_DEP_SET to
 ##     catkin_package(CATKIN_DEPENDS ...)
 ##   * uncomment the add_*_files sections below as needed
@@ -55,12 +52,11 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-add_service_files(
-  FILES
-  LocalizePart.srv
+# add_service_files(
+#   FILES
 #   Service1.srv
 #   Service2.srv
-)
+# )
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -70,11 +66,10 @@ add_service_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-generate_messages(
-  DEPENDENCIES
-  geometry_msgs
+# generate_messages(
+#   DEPENDENCIES
 #   std_msgs  # Or other packages containing msgs
-)
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -107,12 +102,8 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES my_workcell
- CATKIN_DEPENDS 
- roscpp
- fake_ar_publisher
- geometry_msgs
- message_runtime
+#  LIBRARIES my_workcell_support
+#  CATKIN_DEPENDS my_workcell
 #  DEPENDS system_lib
 )
 
@@ -123,14 +114,13 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include ${catkin_INCLUDE_DIRS}
 # include
-# ${catkin_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/my_workcell.cpp
+#   src/${PROJECT_NAME}/my_workcell_support.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -141,7 +131,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/my_workcell_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/my_workcell_support_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -198,31 +188,10 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_my_workcell.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_my_workcell_support.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-
-add_executable(vision_node
-  src/vision_node.cpp
-)
-
-add_dependencies(vision_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-target_link_libraries(vision_node
-  ${catkin_LIBRARIES}
-)
-
-add_executable(my_workcell_node
-  src/my_workcell_node.cpp
-)
-
-add_dependencies(my_workcell_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-target_link_libraries(my_workcell_node
-  ${catkin_LIBRARIES}
-)

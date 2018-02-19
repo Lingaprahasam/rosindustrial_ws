@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>my_workcell</name>
+  <name>myworkcell</name>
   <version>0.0.0</version>
-  <description>The my_workcell package</description>
+  <description>The myworkcell package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
