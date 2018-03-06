@@ -1,9 +1,27 @@
 <launch>
   <arg name="gui" default="true"/>
+  <!-- To import UR5 to the workcell -->
   <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find myworkcell_support)/urdf/workcell.xacro'" />
-  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/> -->
-  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"> -->
-    <!-- <param name="use_gui" value="$(arg gui)"/> -->
-  <!-- </node> -->
+  
+  <!-- To import irb2400 to the workcell -->  
+  <!-- replace find with $(find myworkcell_support)/urdf/workcell_irb2400.xacro'" /> -->
+
+  <!-- robot state publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  
+  <!-- joint state publisher -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="$(arg gui)"/>
+  </node>
+
+  <!-- To launch rviz -->
   <node name="rviz" pkg="rviz" type="rviz" if="$(arg gui)"/>
+
+  <!-- <node name="rviz" pkg="rviz" type="rviz" if="$(arg gui)">
+    <param name="FixedFrame" value="world"/>
+  </node> -->
+  
+  
+  
+  
 </launch>

@@ -39,6 +39,7 @@ find_package(catkin REQUIRED COMPONENTS
   fake_ar_publisher
   message_generation
   geometry_msgs
+  tf
 )
 ##   * add "message_runtime" and every package in MSG_DEP_SET to
 ##     catkin_package(CATKIN_DEPENDS ...)
@@ -73,6 +74,7 @@ add_service_files(
 generate_messages(
   DEPENDENCIES
   geometry_msgs
+  tf
 #   std_msgs  # Or other packages containing msgs
 )
 
@@ -113,6 +115,7 @@ catkin_package(
  fake_ar_publisher
  geometry_msgs
  message_runtime
+ tf
 #  DEPENDS system_lib
 )
 

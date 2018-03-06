@@ -1,19 +1,19 @@
 #include "ros/ros.h"
-#include "my_workcell/LocalizePart.h"
+#include "myworkcell/LocalizePart.h"
 
 class ScanNPlan
 {
 public:
   ScanNPlan(ros::NodeHandle& nh)
     {
-        vision_client_ = nh.serviceClient<my_workcell::LocalizePart>("localize_part");
+        vision_client_ = nh.serviceClient<myworkcell::LocalizePart>("localize_part");
     }
 
     void start(const std::string& base_frame)
     {
         ROS_INFO("Attempting to localize part");        
         // Localize the part
-        my_workcell::LocalizePart srv;
+        myworkcell::LocalizePart srv;
 
         // Using Parameter to request
         srv.request.base_frame = base_frame;
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 {
     std::string base_frame;
 
-    ros::init(argc, argv, "my_workcell_node");
+    ros::init(argc, argv, "myworkcell_node");
     ros::NodeHandle nh;
 
     // Private Node Handle
